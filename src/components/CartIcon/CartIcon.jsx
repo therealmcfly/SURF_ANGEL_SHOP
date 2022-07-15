@@ -11,11 +11,11 @@ const CartIcon = () => {
 	const toggleCartFocus = () => {
 		setCartFocus(!cartFocus);
 	}
-	
+
 	return (
 		<div className="cart-icon-container" onClick={toggleCartFocus}>
 			<ShoppingIcon className="shopping-icon" />
-			<span className="item-count">0</span>
+			{/* <span className="item-count">0</span> */}
 		</div>
 	)
 }
