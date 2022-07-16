@@ -6,15 +6,10 @@ import { CartContext } from "../../contexts/CartContext";
 const ProductCard = ({product}) => {
 	const { imageUrl, name, price } = product;
 
-	const { addItemToCart, cartCount, setCartCount } = useContext(CartContext);
+	const { addItemToCart } = useContext(CartContext);
 
 	const handleAddToCart = () => {
-		const quantityAddedItemObj = {...product, quantity:1}
-		setCartCount((prevCartCount) => {
-			const newCount = prevCartCount + quantityAddedItemObj.quantity
-			return newCount;
-		})
-		return addItemToCart(quantityAddedItemObj)};
+		return addItemToCart(product)};
 
 	return (
 		<div className="product-card-container">

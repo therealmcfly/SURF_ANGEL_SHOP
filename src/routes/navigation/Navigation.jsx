@@ -11,7 +11,7 @@ import "./Navigation.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-	const { cartFocus} = useContext(CartContext);
+	const { cartFocus } = useContext(CartContext);
 
   return (
     <Fragment>
