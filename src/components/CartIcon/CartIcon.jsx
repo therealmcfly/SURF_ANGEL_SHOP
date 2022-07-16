@@ -6,7 +6,7 @@ import "./CartIcon.scss";
 
 const CartIcon = () => {
 
-	const { cartFocus, setCartFocus } = useContext(CartContext);
+	const { cartFocus, setCartFocus, cartCount } = useContext(CartContext);
 
 	const toggleCartFocus = () => {
 		setCartFocus(!cartFocus);
@@ -15,7 +15,7 @@ const CartIcon = () => {
 	return (
 		<div className="cart-icon-container" onClick={toggleCartFocus}>
 			<ShoppingIcon className="shopping-icon" />
-			{/* <span className="item-count">0</span> */}
+			<span className="item-count">{cartCount}</span>
 		</div>
 	)
 }
