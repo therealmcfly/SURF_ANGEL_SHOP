@@ -6,9 +6,19 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-	onAuthStateChanged
+  onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  getDocs,
+  query,
+} from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -35,6 +45,37 @@ export const signInWithGooglePopup = () =>
 
 // user db code
 export const db = getFirestore();
+
+// function to create collection and documents in firestore DB using object data
+export const addCollectionAndDoc = async (collectionKey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((obj) => {
+    const docRef = doc(collectionRef, obj.title.toLowerCase());
+    batch.set(docRef, obj);
+  });
+
+  await batch.commit();
+  console.log("create collection and documents in Firestore DB - done");
+};
+
+// function to fetch data from firebase DB
+export const getCategoriesFromAndDocument = async () => {
+  const collectionRef = collection(db, "categories");
+  // const p = query(collectionRef);
+
+  // const snapshot = await getDocs(p);
+  const snapshot = await getDocs(collectionRef);
+
+  const categoryMap = snapshot.docs.reduce((acc, doc) => {
+    const { title, items } = doc.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  return categoryMap;
+};
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
   if (!userAuth) return;
@@ -74,4 +115,5 @@ export const signInAuthUserWithEmail = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
