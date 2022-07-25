@@ -1,4 +1,4 @@
-import { CATEGORIES_ACTION_TYPES } from "./category.type";
+import { CATEGORIES_ACTION_TYPES } from "./category.types";
 
 const INITIAL_CATEGOIES_STATE = {
   categoriesMap: {},
