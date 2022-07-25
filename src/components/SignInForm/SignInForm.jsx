@@ -56,7 +56,6 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
-
   };
 
   return (
@@ -79,6 +78,7 @@ const SignInForm = () => {
           name="password"
           onChange={handleChange}
           value={password}
+          autoComplete="on"
         />
         <div className="buttons-container">
           <Button type="submit" disabled={signInSubmitIsLoading}>
